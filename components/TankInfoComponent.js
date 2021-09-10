@@ -9,15 +9,11 @@ export default function TankInfo({route, navigation, }) {
     
     
     const id = route.params.aquariumId
-    const newAquarium = route.params.newAquarium 
-
-    console.log(newAquarium)
+    const newAquarium = route.params.newAquarium
+      
 
     const aquarium = AQUARIUMS.filter(aquarium => aquarium.id === id)[0];
-    // const addedAquarium = newAquarium.filter(addedAquarium => addedAquarium.id === newAquarium.id)[0];
-     
-    // {console.log(addedAquarium)}
-    
+        
     if (aquarium)
     return(
         

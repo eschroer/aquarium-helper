@@ -20,7 +20,6 @@ function Main() {
         size: enteredSize
     }
     
-    // console.log(aquariums)
     // useEffect(() => {
     //     getData();
     //   }, []);
@@ -48,6 +47,7 @@ function Main() {
     //       console.log(error);
     //     }
     //   };
+
     const titleChangeHandler = (enteredTitle) => {
         setEnteredTitle(enteredTitle)
     }
@@ -63,7 +63,7 @@ function Main() {
         })
          setEnteredTitle('');
          setEnteredSize('');
-        // return newAquariums;
+        return newAquariums;
     }
       
        
@@ -77,7 +77,7 @@ function Main() {
                     caption={item.size}
                     featured
                     imageSrc= {{uri: item.image}}
-                    onPress={() => navigation.navigate('TankInfo', {aquariumId: item.id, newAquarium: newAquariums})}
+                    onPress={() => navigation.navigate('TankInfo', {aquariumId: item.id, newAquarium: item})}
                 />
                 
             </View>
