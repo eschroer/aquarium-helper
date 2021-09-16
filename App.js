@@ -6,6 +6,7 @@ import TankInfo from './components/TankInfoComponent';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context'
+import Maintenance from './components/MaintenanceRecordComponent';
 
 function HomeScreen({navigation}) {
   
@@ -41,6 +42,11 @@ export default function App() {
         }}/>
         <Stack.Screen name="TankInfo" component={TankInfo} options={{
           title: "Tank Data",
+          headerStyle: {backgroundColor: '#045de9'},
+          headerTintColor: '#fff'
+        }}/>
+        <Stack.Screen name="Maintenance" component={Maintenance} options={{
+          title: "Tank Maintenance",
           headerStyle: {backgroundColor: '#045de9'},
           headerTintColor: '#fff'
         }}/>

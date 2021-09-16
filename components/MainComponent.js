@@ -22,11 +22,11 @@ function Main() {
     
     // useEffect(() => {
     //     getData();
-    //   }, []);
+    //   }, [aquariums]);
     
     //   useEffect(() => {
     //     setData();
-    //   }, [aquariums]);
+    //   }, []);
 
     //   const setData = async (aquariums) => {
     //     try {
@@ -115,6 +115,7 @@ function Main() {
                     value={enteredSize} 
                 />
                 <Button
+                    style={styles.button}
                     onPress={() => {
                         addAquarium()
                         setModalVisible(!modalVisible)
@@ -122,6 +123,7 @@ function Main() {
                     title="Submit"
                 />
                 <Button
+                    style={styles.button}
                     onPress={() => {
                         setModalVisible(!modalVisible)
                     }}
@@ -161,8 +163,10 @@ const styles = StyleSheet.create({
     modalText: {
         fontSize: 18,
         margin: 10
+    },
+    button: {
+        margin: 10
     }
-
 })
 
 export default Main; 

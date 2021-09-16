@@ -1,13 +1,20 @@
 import React, {useState} from 'react';
-import { Text, View } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Text, View, StyleSheet, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { Card, Button } from 'react-native-elements';
 import { AQUARIUMS } from '../shared/aquariums';
+import Maintenance from './MaintenanceRecordComponent';
 
 
 export default function TankInfo({route, navigation, }) {
     const [aquariumData, manageAquariumData] = useState(AQUARIUMS)
     
-    
+    const aqData = [
+        {date: "2021-08-01", changePercent: 10 },
+        {date: "2021-08-08", changePercent: 25 } 
+    ]
+   
+
+
     const id = route.params.aquariumId
     const newAquarium = route.params.newAquarium
       
@@ -16,20 +23,37 @@ export default function TankInfo({route, navigation, }) {
         
     if (aquarium)
     return(
-        
-        <View>
-            <Card>
-                <Text>{aquarium.name}</Text>
-                <Text>{aquarium.size}</Text>
-                <Text>Fish: {aquarium.fish}</Text>
-                <Text>Water Parameters</Text>
-                <Text>Temperature: {aquarium.temperature}</Text>
-                <Text>pH: {aquarium.pH}</Text>
-                <Text>Nitrate: {aquarium.nitrate}ppm</Text>
-                <Text>Nitrite: {aquarium.nitrite}ppm</Text>
-                <Text>Ammonia: {aquarium.ammonia}ppm</Text>
+        <SafeAreaView>
+            <ScrollView style={styles.card}>
+            <Card style={styles.card, {borderRadius: 80, overflow: 'hidden'}}>
+                <Text style={styles.title}>
+                    {aquarium.name}
+                </Text>
+                <Text style={{textAlign: 'center', marginBottom: 10, fontWeight: "300"}}>
+                    {aquarium.size}
+                </Text>
+                <Text style={{textTransform: 'capitalize', textAlign: 'center'}}>
+                    Fish: {aquarium.fish}
+                </Text>
+                <Text style={styles.title}>Current Water Parameters</Text>
+                <View style={{padding: 20, borderColor: 'black', borderWidth: 2, borderRadius: 10}}> 
+                    <Text>Temperature: {aquarium.temperature}</Text>
+                    <Text>pH: {aquarium.pH}</Text>
+                    <Text>Nitrate: {aquarium.nitrate} ppm</Text>
+                    <Text>Nitrite: {aquarium.nitrite} ppm</Text>
+                    <Text>Ammonia: {aquarium.ammonia} ppm</Text>
+                </View>
+                <Button style={{marginTop: 10}} title="Update Water Parameters" />
             </Card>
-        </View>
+            <Card>
+                <Text style={styles.title}>Maintenance</Text>
+              
+                <Button title="Add Maintenance Record" 
+                        onPress={() => navigation.navigate('Maintenance')}/>
+
+            </Card>
+            </ScrollView>
+        </SafeAreaView>
     )
     else 
     return(
@@ -42,3 +66,27 @@ export default function TankInfo({route, navigation, }) {
     </View>
     )
 }
+const styles = StyleSheet.create({
+    card: {
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowRadius: 5,
+    shadowOpacity: .75,
+    
+    }, 
+      title: {
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignContent: "center",
+        margin: 20,
+        fontSize: 18
+        },
+   values: {
+        fontSize: 18,
+        margin: 10
+    }
+
+})
