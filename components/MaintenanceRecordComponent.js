@@ -29,12 +29,14 @@ class Maintenance extends Component{
                 
         this.setState(prevState => ({
             maintenanceList: [...prevState.maintenanceList, ...newData]}))
-           
-            return this.state.maintenanceList
-       
-    
-    }
+            this.resetInput()
+        return this.state.maintenanceList
+        }
    
+    resetInput = () => {
+            this.setState({maintenanceType: '', date: new Date()})
+        }
+
     renderList = ({item}) => {
         return(
          <View>   
@@ -82,7 +84,7 @@ render() {
         <FlatList
             data={this.state.maintenanceList}
             renderItem={this.renderList}
-            keyExtractor={item => this.state.id}
+            keyExtractor={(item, index) => index.toString()}
             extraData={this.state}
         />
         </Card> 
