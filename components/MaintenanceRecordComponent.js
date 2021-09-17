@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import {View, FlatList, Item, Text} from 'react-native'
+import {View, FlatList, Item, Text, Alert} from 'react-native'
 import {Input, Button, Tile, Card } from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-let maintenanceList = [{id: 0, maintenanceType: "Water change", date: "09/15/2021"}, 
-                        {id: 1, maintenanceType: "Filter cleaning", date: "09/05/2021"}]
 
 class Maintenance extends Component{
 
@@ -12,21 +10,39 @@ class Maintenance extends Component{
         super(props);
 
         this.state = {
+            maintenanceList: [{id: 0, maintenanceType: "Water change", date: "09/15/2021"}, 
+                        {id: 1, maintenanceType: "Filter cleaning", date: "09/05/2021"}],
             maintenanceType: '',
             date: new Date(),
             showCalendar: false,
             id: Math.random()
             }
+
     }
 
+    
+   addItem = () => {
+        const newMaintenance = this.state.maintenanceType
+        const newDate = this.state.date
+        const newId = this.state.id
+        const newData = [{newId, newMaintenance, newDate}]
+                
+        this.setState(prevState => ({
+            maintenanceList: [...prevState.maintenanceList, ...newData]}))
+           
+            return this.state.maintenanceList
+       
+    
+    }
    
     renderList = ({item}) => {
         return(
          <View>   
-        <Text>{item.maintenanceType}</Text>
-        <Text style={{marginBottom: 10}}>{item.date}</Text> 
+        <Text>{item.maintenanceType || item.newMaintenance}</Text>
+        <Text style={{marginBottom: 10}}>{item.date || item.newDate.toLocaleDateString('en-EN')}</Text> 
         </View>
     )};
+
 render() {
 
     return(
@@ -57,16 +73,17 @@ render() {
                     />
                 )}
         <Button title="Add Maintenance"
-                onPress={this.renderList}
+                onPress={this.addItem}
                 style={{margin: 10}}
                 />
      </View>
      <View>
         <Card>
         <FlatList
-            data={maintenanceList}
+            data={this.state.maintenanceList}
             renderItem={this.renderList}
-            keyExtractor={item => item.id}
+            keyExtractor={item => this.state.id}
+            extraData={this.state}
         />
         </Card> 
         </View>
